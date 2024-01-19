@@ -1,0 +1,74 @@
+body, html{
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+header{
+    background-color: #C38154;
+    text-align: center;
+    color: black;
+}
+h3{
+    text-align: center;
+    color: #f5f5dc;
+}
+.transparent-table{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.nav-link {
+    color:black;
+    background-color: #D2B48C;
+}
+.btn-custom{
+    background-color: #f5f5dc;
+    color: #333;
+    border-color: #000;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+.FotoPerfil{
+    display: flex;
+    align-items: center;
+    width: 270px;
+    height: 270px;
+    border-radius: 10%;
+}
+.CerrarSesion{
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 10%;
+}
+.InformacionUsuario{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    font-size: 20px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.InformacionUsuario label{
+    font-weight: bold;
+}
+.InformacionTicket{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    font-size: 12px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.InformacionTicket label{
+    font-weight: bold;
+}
+.InformacionTicket span{
+    border-bottom: 1px solid #000;
+}
+.InformacionUsuario span{
+    border-bottom: 1px solid #000;
+}

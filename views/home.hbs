@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/avion.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+
+    <title>Aerolinea</title>
+</head>
+
+<body
+    style="background-image: url('images/banner.jpg'); background-size: cover; background-repeat: no-repeat; width: 100%; padding-bottom: 100px;">
+
+    <!-- Header -->
+
+    <header><br>
+
+        <!-- Titulo de la pagina -->
+
+        <h1>Aerolinea</h1>
+
+        <!-- Se agregan las pestañas de la pagina -->
+
+        <div style="width: 100%;">
+
+            <ul class="nav nav-tabs" id="myTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="iniciarSesion" data-bs-toggle="tab" href="#form1"
+                        style="background-color: #FFDAB9;">Iniciar Sesion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="crearUsuario" data-bs-toggle="tab" href="#form2">Crear Usuario</a>
+                </li>
+            </ul>
+
+        </div>
+    </header>
+
+    <!-- Se agregan los formularios -->
+
+    <div class="tab-content mt-2"><br><br>
+
+        <!-- contenido del formulario 1 -->
+
+        <div class="tab-pane fade show active" id="form1">
+            <div class="container border border-start rounded p-2 mb-2"
+                style="width: 700px; height: 235px; background-color: #F9F7C9;">
+                <form action="/sesionUsuario" method="post">
+
+                    <!-- Email -->
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control" type="email" name="correo" id="correoUsuario" required>
+                    </div>
+
+                    <!-- Contraseña -->
+
+                    <div class="mb-3">
+                        <label for="contraseña" class="form-label">Contraseña</label>
+                        <input class="form-control" type="password" name="contrasena" id="contrasenaUsuario"
+                            placeholder="Ingrese su contraseña" required>
+                    </div>
+
+                    <!-- Boton de confirmacion -->
+
+                    <input class="btn btn-custom" type="submit" value="Iniciar Sesion">
+
+                    {{#if error}}
+                    <p style="color: crimson;">{{error}}</p>
+                    {{/if}}
+
+                </form>
+            </div>
+        </div>
+
+        <!-- contenido del formulario 2 -->
+
+        <div class="tab-pane fade" id="form2">
+            <div class="container border border-start rounded p-2 mb-2"
+                style="width: 700px; height: 650px; background-color: #F9F7C9;">
+                <form action="/crear" method="post">
+
+                    <!-- Nombre -->
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre(s)</label>
+                        <input class="form-control" type="text" name="nombre" id="nombre"
+                            placeholder="Digite su(s) nombre(s)" required>
+                    </div>
+
+                    <!-- Apellido -->
+
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellidos</label>
+                        <input class="form-control" type="text" name="apellido" id="apellido"
+                            placeholder="Digite sus apellidos" required>
+                    </div>
+
+                    <!-- País -->
+
+                    <div class="mb-3">
+                        <label for="pais" class="form-label">País</label>
+                        <div class="dropdown">
+                            <input class="form-control" href="$" type="text" name="pais" id="paisDropdown"
+                                data-bs-toggle="dropdown" placeholder="Seleccione su pais" aria-haspopup="true"
+                                aria-expanded="false" required>
+                            <div class="dropdown-menu" aria-labelledby="paisDropdown" id="paisesMenu">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de documento -->
+
+                    <div class="mb-3">
+                        <label for="tipodocumento" class="form-label">Tipo de documento</label>
+                        <div class="dropdown">
+                            <input class="form-control" href="#" type="text" name="tipodocumento" id="documentoDropdown"
+                                data-bs-toggle="dropdown" placeholder="Seleccione su tipo de documento"
+                                aria-haspopup="true" aria-expanded="false" required>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                        onclick="seleccionarDocumento('Tarjeta de identidad')">Tarjeta de identidad</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                        onclick="seleccionarDocumento('Cedula de ciudadania')">Cedula de ciudadania</a>
+                                </li>
+                                <li><a class="dropdown-item" onclick="seleccionarDocumento('Pasaporte')">Pasaporte</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Numero de documento -->
+
+                    <div>
+                        <label for="cedula" class="form-label">Numero de documento</label>
+                        <input class="form-control" type="text" name="documento" id="documento" required>
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control" type="email" name="correo" id="correo"
+                            placeholder="Nombre@ejemplo.com" required>
+                    </div>
+
+                    <!-- Contraseña -->
+
+                    <div class="mb-3">
+                        <label for="contraseña" class="form-label">Contraseña</label>
+                        <input class="form-control" type="password" name="contrasena" id="contrasena"
+                            placeholder="Ingrese su contraseña" required>
+                    </div>
+
+                    <!-- Boton de confirmacion -->
+
+                    <input class="btn btn-custom" type="submit" value="Crear Usuario">
+
+                    {{#if error}}
+                    <p style="color: crimson;">{{error}}</p>
+                    {{/if}}
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        //Crear opciones de paises
+
+        const paises = ["Argentina", "Brasil", "Chile", "Colombia", "Ecuador", "México", "Perú"];
+
+        function generarOpcionesPais() {
+            let menu = document.getElementById("paisesMenu");
+
+            paises.forEach((pais) => {
+                let opcion = document.createElement("a");
+                opcion.className = "dropdown-item";
+                opcion.textContent = pais;
+                opcion.onclick = function () {
+                    seleccionarPais(pais);
+                };
+
+                menu.appendChild(opcion);
+            });
+        }
+
+        function seleccionarPais(pais) {
+            document.getElementById('paisDropdown').value = pais;
+        }
+
+        generarOpcionesPais();
+
+        //Crear opciones de documentos
+
+        function seleccionarDocumento(documento) {
+            document.getElementById('documentoDropdown').value = documento;
+        }
+
+        document.getElementById('iniciarSesion').addEventListener('click', () => {
+            document.getElementById('iniciarSesion').style.backgroundColor = '#FFDAB9';
+            document.getElementById('crearUsuario').style.backgroundColor = '#D2B48C';
+        })
+        document.getElementById('crearUsuario').addEventListener('click', () => {
+            document.getElementById('crearUsuario').style.backgroundColor = '#FFDAB9';
+            document.getElementById('iniciarSesion').style.backgroundColor = '#D2B48C';
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/avion.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <title>Pagos</title>
+</head>
+
+<body style="background-image: url('images/banner3.jpg'); background-size: cover; background-repeat: no-repeat; width: 100%; padding-bottom: 100px;">
+    <header><br>
+
+        <h1>Confirmar Pago</h1>
+
+    </header>
+
+    <div class="container border border-start rounded p-2 mb-2 transparent-table">
+        <table class="table table-dark">
+            <thead class="table-active">
+                <td>Modelo De Avion</td>
+                <td>Id Vuelo</td>
+                <td>Aeropuerto Origen</td>
+                <td>Destino</td>
+                <td>H.EST</td>
+                <td>H.SAL</td>
+                <td>Tarifa De Vuelo</td>
+                <td></td>
+                <td></td>
+            </thead>
+            <tbody>
+
+                <!-- Crear opciones de vuelo -->
+
+                <tr id="fila-{{vuelo.id}}">
+                    <td>{{vuelo.numero}}</td>
+                    <td>{{vuelo.id}}</td>
+                    <td>{{vuelo.aeropuertoOrigen}}</td>
+                    <td>{{vuelo.aeropuertoDestino}}</td>
+                    <td>{{vuelo.fechaLlegada}}</td>
+                    <td>{{vuelo.fechaSalida}}</td>
+                    <td>${{vuelo.tarifaVuelo}}</td>
+                    <td>
+                        <form form action="/confirmarReserva" method="post">
+                            <input type="hidden" name="id" value="{{vuelo.id}}">
+                            <input type="hidden" name="numero" value="{{vuelo.numero}}">
+                            <input type="hidden" name="aeropuertoOrigen" value="{{vuelo.aeropuertoOrigen}}">
+                            <input type="hidden" name="aeropuertoDestino" value="{{vuelo.aeropuertoDestino}}">
+                            <input type="hidden" name="fechaLlegada" value="{{vuelo.fechaLlegada}}">
+                            <input type="hidden" name="fechaSalida" value="{{vuelo.fechaSalida}}">
+                            <input type="hidden" name="nombre" value="{{vuelo.nombre}} {{vuelo.apellido}}">
+                            <input type="hidden" name="pais" value="{{vuelo.pais}}">
+                            <input type="hidden" name="tipoDocumento" value="{{vuelo.tipoDocumento}}">
+                            <input type="hidden" name="documento" value="{{vuelo.documento}}">
+                            <input type="hidden" name="correo" value="{{vuelo.correo}}">
+                            <input type="hidden" name="contrasena" value="{{vuelo.contrasena}}">
+                            <input class="btn btn-custom" type="submit" value="Confirmar">
+                        </form>
+                    </td>
+                    <td><button class="btn btn-custom" onclick="volverMenuVuelos()">Cancelar Reserva</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+
+        function volverMenuVuelos() {
+
+            window.history.back();
+
+        };
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

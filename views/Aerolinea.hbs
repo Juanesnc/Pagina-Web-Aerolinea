@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/avion.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+
+    <title>Aerolinea</title>
+</head>
+
+<body style="background-image: url('images/banner2.jpg'); background-size: cover; background-repeat: no-repeat; width: 100%; padding-bottom: 100px;">
+    <header><br>
+        <h1>Bienvenido, {{titulo}}</h1>
+
+        <div style="width: 100%;">
+            <ul class="nav nav-tabs" id="myTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="consultarVuelos" data-bs-toggle="tab" href="#form1"
+                        style="background-color: #FFDAB9;">Consultar Vuelos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="usuario" data-bs-toggle="tab" href="#form2">Usuario</a>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="tab-content mt-2">
+
+        <!-- container de la pagina de Consultar Vuelos -->
+
+        <div class="tab-pane fade  show active" id="form1">
+            <div class="container border border-start rounded p-2 mb-2 transparent-table">
+
+                <form action="/sesionUsuario" method="post" class="mb-3">
+
+                    <input name="correo" type="hidden" value="{{ usuario.correo }}">
+                    <input name="contrasena" type="hidden" value="{{ usuario.contrasena }}">
+
+
+                    <h3 class="mb-3" style="border-bottom: 1px solid #ffffff;"> Realizar Busqueda </h3>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input class="form-control" type="text" name="condicionModelo" id="condicionModelo"
+                                placeholder="Modelo De Avion">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="condicionAOrigen" id="condicionAOrigen"
+                                placeholder="Aeropuerto Origen">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="condicionADestino" id="condicionADestino"
+                                placeholder="Destino">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="condicionFechaLlegada"
+                                id="condicionFechaLlegada" placeholder="H.EST">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="condicionFechaSalida"
+                                id="condicionFechaSalida" placeholder="H.SAL">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="condicionTarifaVuelo"
+                                id="condicionTarifaVuelo" placeholder="Tarifa">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-custom" value="Buscar">
+                        </div>
+                    </div>
+
+                    {{#if error}}
+                    <p style="color: crimson;">{{error}}</p>
+                    {{/if}}
+
+                </form>
+
+
+                <table class="table table-dark">
+
+                    <thead class="table-active">
+                        <td>Modelo De Avion</td>
+                        <td>Aeropuerto Origen</td>
+                        <td>Destino</td>
+                        <td>H.EST</td>
+                        <td>H.SAL</td>
+                        <td>Tarifa De Vuelo</td>
+                        <td>Observacion</td>
+                    </thead>
+                    <tbody>
+
+                        <!-- Crear opciones de vuelo -->
+                        {{#each vuelos}}
+                        <tr id="fila-{{id}}">
+                            <td>{{numero}}</td>
+                            <td>{{aeropuertoOrigen}}</td>
+                            <td>{{aeropuertoDestino}}</td>
+                            <td>{{fechaLlegada}}</td>
+                            <td>{{fechaSalida}}</td>
+                            <td>{{tarifaVuelo}}</td>
+                            {{#if observaciones}}
+                            <td>{{observaciones}}</td>
+                            {{else}}
+                            <td><button id="boton-{{id}}" class="btn btn-custom"
+                                    onclick="irAReserva({{id}},'{{../usuario.correo}}','{{../usuario.contrasena}}')">Hacer
+                                    Reserva</button></td>
+                            {{/if}}
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- container de la pagina de Usuario -->
+
+        <div class="tab-pane fade" id="form2">
+
+            <div class="container float-start border border-start rounded p-2 mb-2"
+                style="width: 40%; height: 500px; background-color: #F9F7C9; margin-left: 20px;">
+
+                <img class="FotoPerfil" src="/images/FotoDePerfil.png" alt="Foto De Perfil">
+
+                <div class="InformacionUsuario">
+                    <label for="nombreUsuario">Usuario: </label>
+                    <span id="nombreUsuario">{{usuario.nombre}} {{usuario.apellido}}</span>
+                </div>
+
+                <div class="InformacionUsuario">
+                    <label for="pais">País: </label>
+                    <span id="pais">{{usuario.pais}}</span>
+                </div>
+
+                <div class="InformacionUsuario">
+                    <label for="Documento">Numero de {{usuario.tipoDocumento}}: </label>
+                    <span id="Documento">{{usuario.documento}}</span>
+                </div>
+
+                <div class="InformacionUsuario">
+                    <label for="correo">Correo: </label>
+                    <span id="correo">{{usuario.correo}}</span>
+                </div>
+
+                <div class="InformacionUsuario">
+                    <label for="cerrarSesion">Cerrar Sesion</label>
+                    <form action="/salir" method="post">
+                        <input class="CerrarSesion" src="/images/CerrarSesion.png" type="image">
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- container de los tickets -->
+
+            {{#each tickets}}
+            <div class="container float-end border border-start rounded p-2 mb-2"
+                style="width: 55%; height: 150px; background-color: #F9F7C9; margin-right: 20px;">
+                
+                <div class="InformacionTicket">
+                    <label for="idVuelo">Id de Vuelo: </label>
+                    <span id="idVuelo">{{numero}}</span>
+                </div>
+                <div class="InformacionTicket">
+                    <label for="fechaVencimiento">El ticket vence el: </label>
+                    <span id="fechaVencimiento">{{fechaVencimiento}}</span>
+                </div>
+                <div class="InformacionTicket">
+                    <label for="correo">Correo utilizado para la compra: </label>
+                    <span id="correoTicket">{{correo}}</span>
+                </div>
+                <div class="InformacionTicket">
+                    <label for="nombreAvion">Modelo de Avion: </label>
+                    <span id="nombreAvion">{{nombre}}</span>
+                </div>
+                <div class="InformacionTicket">
+                    <label for="Trayectoria">Trayectoria: </label>
+                    <span id="Trayectoria">{{vuelo}}</span>
+                </div>
+            </div>
+
+            {{/each}}
+
+        </div>
+
+
+
+    </div>
+
+
+    <script>
+
+        //Hacer Reserva con el numero de vuelo
+
+        async function irAReserva(numeroVuelo, usuarioCorreo, usuarioContrasena) {
+
+            try {
+
+                const reserva = await fetch('/irAReserva', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ numeroVuelo: numeroVuelo, correo: usuarioCorreo, contrasena: usuarioContrasena })
+                });
+                const vuelo = await reserva.json();
+
+                window.location.href = '/sesionUsuario?vuelo=' + encodeURIComponent(JSON.stringify(vuelo));
+            } catch (error) {
+                console.error('Error al realizar la reserva', error);
+            }
+
+        };
+
+        //Cambio en el estilo de los botones
+
+        document.getElementById('usuario').addEventListener('click', () => {
+            document.getElementById('usuario').style.backgroundColor = '#FFDAB9';
+            document.getElementById('consultarVuelos').style.backgroundColor = '#D2B48C';
+        });
+        document.getElementById('consultarVuelos').addEventListener('click', () => {
+            document.getElementById('consultarVuelos').style.backgroundColor = '#FFDAB9';
+            document.getElementById('usuario').style.backgroundColor = '#D2B48C';
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
